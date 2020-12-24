@@ -1,5 +1,5 @@
-This is a website via which users can “buy” and “sell” stocks with virtual cash.
-I made this app with distribution code from CS50 staff. I had to unclude next:
+This is a website via which users can “buy” and “sell” stocks with virtual cash. It a web aplication build with Flask, Bootstrap and SQL database
+I made this app with distribution code from CS50 staff. I had to implement funcionality below:
 # Specification
 ## register
 Complete the implementation of register in such a way that it allows a user to register for an account via a form.
