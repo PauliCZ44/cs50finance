@@ -49,8 +49,8 @@ def index():
     user_cash = db.execute("SELECT cash FROM users WHERE id = :user_id;",  user_id = session["user_id"])[0]["cash"]
 
     # Select only stocks of logged user, summed by name of company.
-    rows = db.execute("SELECT name, symbol, price, sum(amount) AS amount FROM stocks WHERE user_id = :user_id DISTINCT ON name;",  user_id = session["user_id"])
-    #rows = db.execute("SELECT name, symbol, price, sum(amount) AS amount FROM stocks WHERE user_id = :user_id GROUP BY name;",  user_id = session["user_id"])
+    # rows = db.execute("SELECT name, symbol, price, sum(amount) AS amount FROM stocks WHERE user_id = :user_id DISTINCT ON name;",  user_id = session["user_id"])
+    rows = db.execute("SELECT name, symbol, sum(amount) AS  amount FROM stocks WHERE user_id = :user_id GROUP BY name, symbol;",  user_id = session["user_id"])
 
     #rows2 = db.execute("SELECT name, symbol, price FROM stocks WHERE user_id = :user_id  ")
     total_value = 0
