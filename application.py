@@ -1,5 +1,6 @@
 import os
 
+from random import randrange
 from cs50 import SQL
 from flask import Flask, flash, jsonify, redirect, render_template, request, session
 from flask_session import Session
@@ -231,10 +232,10 @@ def register():
         if(len(existing_username) != 0):
             return apology("username is already taken", 403)
 
-
+        random_id = randrange(9999999)
         # Query database to create an user in user table
-        rows = db.execute("INSERT INTO users (username, hash) VALUES (:username, :password)",
-                          username=username, password=password)
+        rows = db.execute("INSERT INTO users (username, hash, id, cash) VALUES (:username, :password, :random_id, 10000)",
+                          username=username, password=password, random_id=random_id)
         return redirect("/")
     elif request.method == "GET":
         """Show REgistration for"""
