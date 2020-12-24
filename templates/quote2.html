@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quote
+{% endblock %}
+
+{% block main %}
+    <form method="post" action="quote">
+        <label class="font-weight-bold">Enter stock symbol:</label>
+        <input type="text"
+            style="max-width: 200px"
+            class="form-control"
+            id="stocksymbol"
+            name="stocksymbol"
+            placeholder="ex. AAPL"
+            required
+          />
+        <button class="btn btn-info submitBtn mt-3" type="submit">
+            Quote
+        </button>
+    </form>
+    <div class = "text-centered mt-5">
+        <h3>A share of <strong>{{ name }} ({{ symbol }})</strong> costs <strong>{{ price }}</strong>.</h3>
+    </div>
+{% endblock %}

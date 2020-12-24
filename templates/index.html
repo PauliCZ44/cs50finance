@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Quote
+{% endblock %}
+
+{% block main %}
+<h2 class="my-3 mb-5">Your balance:</h1>
+  <div class="table-responsive">
+    <table class="table table-striped table-sm text-lefT table-hover mx-auto w-100 align-middle">
+      <thead>
+        <tr>
+          <th>Symbol</th>
+          <th>Name</th>
+          <th>Shares</th>
+          <th>Price</th>
+          <th>TOTAL</th>
+          <th>Buy</th>
+          <th>Sell</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="4"></td>
+          <td class="text-right"><strong>{{ usd(total + user_cash) }}</strong></td>
+          <td class="text-right" colspan="2"> </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        {% for row in rows %}
+        <tr>
+
+          <td class="text-left align-middle">{{ row["symbol"] }}</td>
+          <td class = "align-middle">{{ row["name"] }}</td>
+          <td class = "align-middle">{{ row["amount"] }}</td>
+          <td class = "align-middle">{{ usd(row["actual_price"]) }}</td>
+          <td class="text-right align-middle">{{ usd(row["actual_price"]*row["amount"]) }}</td>
+          {# Personal touch - this allows user to sell and buy stocks, they alreay have#}
+          <td class = "align-middle">
+            <form method="post" action="buy">
+            <div class="input-group align-middle px-2" style="min-width: 120px;">
+              <input type="number"
+                    style="max-width: 80px;"
+                    name="stockAmount"
+                    min="1"
+                    required
+                    class="form-control" placeholder="0" aria-label="Amount to buy" aria-describedby="basic-addon2">
+                <input type="text"
+                    style="display: none"
+                    name="stocksymbol"
+                    value="{{ row["symbol"] }}"
+                    required
+                    />
+              <div class="input-group-append">
+                <button class="btn btn-info btn-sm" type="submit">Buy</button>
+              </div>
+            </div>
+            </form>
+          </td>
+          <td class = "align-middle" >
+             <form method="post" action="sell">
+            <div class="input-group align-middle px-2"  style="min-width: 120px;">
+              <input type="number"
+                    name="stockAmount"
+                    min="1"
+                    required
+                    style="max-width: 80px;"
+                    class="form-control"
+                    placeholder="0"
+                    max = "{{ row["amount"] }}"
+                    aria-label="Amount to sell" aria-describedby="basic-addon2">
+                 <input type="text"
+                    style="display: none"
+                    name="stocksymbol"
+                    value="{{ row["symbol"] }}"
+                    required
+                    />
+              <div class="input-group-append">
+                <button class="btn btn-info btn-sm" type="submit">Sell</button>
+              </div>
+            </div>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+
+        <tr>
+          <td colspan="4" class="text-left">CASH</td>
+          <td class="text-right">{{ usd(user_cash) }}</td>
+          <td class="text-right" colspan="2"> </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  {% endblock %}

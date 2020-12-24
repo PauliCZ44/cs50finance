@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quote
+{% endblock %}
+
+{% block main %}
+    <h2 class="my-3 mb-5">Your history of transactions:</h1>
+    <div class="table-responsive">
+            <table class="table table-striped table-sm text-left table-hover w-100">
+                <thead>
+                    <tr class="text-center">
+                        <th>Symbol</th>
+                        <th>Name</th>
+                        <th>Shares</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in rows %}
+                    <tr class = "{{ row["text_color"] }}">
+                        <td>{{ row["symbol"] }}</td>
+                        <td>{{ row["name"] }}</td>
+                        <td class="text-right">{{ row["amount"] }}</td>
+                        <td class="text-right">{{ usd(row["price"]) }}</td>
+                        <td class="text-right">{{ usd(row["price"]*row["amount"]) }}</td>
+                        <td class="text-right">{{ row["date"] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+{% endblock %}
